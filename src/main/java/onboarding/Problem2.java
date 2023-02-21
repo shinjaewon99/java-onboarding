@@ -1,34 +1,34 @@
 package onboarding;
 
 
-import java.util.Arrays;
 import java.util.Stack;
 
 public class Problem2 {
     public static String solution(String cryptogram) {
+        /**
+         * push의 리턴값은 <E> 이고, add의 리턴값은 boolean이다.
+         * stack 사용시 List에서 제공하는 add를 사용할수도있지만,
+         * stack을 사용해서 코드를 작성하고 있다면 push를 사용하자.
+         */
+        String answer = "";
 
-        // Stack st를 선언해준다.
-        Stack<Character> st = new Stack<>();
-        // cryptogram을 char형 배열에 담아준다.
-        char[] arr =cryptogram.toCharArray();
+        Stack<Character> password = new Stack<>();
 
-        // for 문을 통해 arr을 char c에 담아주고, 조건문을 사용해 스택 st가 공백이거나 ,
-        // st의 가장 최근의 값이 char c 와 같지 않으면 push를 해준다. 그 경우가 아니라면 st.pop()
+        char[] cryptogramChar = cryptogram.toCharArray();
 
-        for(char c : arr){
-            if(st.empty() || st.peek() !=c){
-                st.push(c);
-            }
-            else{
-                st.pop();
-
+        for (int i = 1; i < cryptogramChar.length; i++) {
+            if(password.isEmpty()){
+                password.push(cryptogramChar[0]);
+            } else if (!password.contains(cryptogramChar[i])) {
+                password.push(cryptogramChar[i]);
             }
         }
-        // vlalueof를 사용하여 Character형을 String으로 변환하여 replaceAll을 사용하여 알파벳 소문자가 아니라면
-        // 공백값을 제거해준다.
-        return String.valueOf(st).replaceAll("[^a-z]","");
+
+        for (Character character : password) {
+            answer = String.valueOf(character);
+        }
+
+        return answer;
 
     }
-
-
 }
