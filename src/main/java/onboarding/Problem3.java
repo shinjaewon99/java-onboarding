@@ -12,8 +12,8 @@ public class Problem3 {
         int count = 0;
         for (int i = 0; i <= number; i++) {
             int check = i % 10;
-            int three = i / 10;
-            if (three == 3 || three == 6 || three == 9) {
+            int threeSixNine = i / 10;
+            if (threeSixNine == 3 || threeSixNine == 6 || threeSixNine == 9) {
                 count++;
             }
             if (check == 3 || check == 6 || check == 9) {
