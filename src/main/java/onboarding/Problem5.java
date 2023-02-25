@@ -1,33 +1,73 @@
 package onboarding;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Problem5 {
+
+    private static final int 오만원 = 50000;
+    private static final int 만원 = 10000;
+    private static final int 오천원 = 5000;
+    private static final int 천원 = 1000;
+    private static final int 오백원 = 500;
+    private static final int 백원 = 100;
+    private static final int 오십원 = 50;
+    private static final int 십원 = 10;
+    private static final int 일원 = 1;
+
     public static List<Integer> solution(int money) {
 
-        List<Integer> answer = new ArrayList<Integer>();
-        // 객체배열 9개를 만들어준다.
-        int[] arr = new int[9];
-        // a 배열에 50000원 부터 1원까지 9개를 순서대로 담아준다.
-        int[] a = new int[]{50000, 10000, 5000, 1000, 500, 100, 50 , 10, 1};
+        int[] moneyList = {오만원, 만원, 오천원, 천원, 오백원, 백원, 오십원, 십원, 일원};
 
-        // for문을 이용해 index 0 부터 a.length까지 money를 화폐의 나눈몫을 arr에 담아준다.
-        for (int i = 0; i < a.length; i++) {
-            if (i == 0) {
-                arr[i] = (money / a[i]);
+        List<Integer> result = new ArrayList<>();
 
-            } else {
-                arr[i] = (money % a[i - 1]) / a[i];
-            }
+        // 검증
+        if (moneyCheck(money)) {
+            result = moneyWallet(money, moneyList);
         }
-        // arr에 담은 배열 값을 answer 이라는 list에 .add() 해준다.
-        // list answer 값을 return 해준다.
-        for (int b : arr) {
-            answer.add(b);
-        }
-        return answer;
+
+        return result;
+
     }
+
+    private static List<Integer> moneyWallet(int money, int [] moneyList){
+
+        List<Integer> wallet = new ArrayList<>();
+
+        for (int i = 0; i < moneyList.length; i++) {
+            // 각 money가 사용된 갯수를 세어준다.
+            int moneyCount = money/moneyList[i];
+
+            // 위에서 계산하고 남은 잔돈을 담아준다.
+            money %= moneyList[i];
+            wallet.add(moneyCount);
+        }
+        return wallet;
+    }
+
+    private static boolean moneyCheck(int money){
+        if(!(money >= 1 && money <=1000000)){
+            return false;
+        }
+        return true;
+    }
+
+   /* public enum Money{
+        오만원(50000),
+        만원(10000),
+        오천원(5000),
+        천원(1000),
+        오백원(500),
+        백원(100),
+        오십원(50),
+        십원(10),
+        일원(1);
+
+        private int money;
+
+        Money(int money) {
+            this.money = money;
+        }
+    }*/
+
 }
