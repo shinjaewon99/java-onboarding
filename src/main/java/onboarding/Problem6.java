@@ -5,39 +5,31 @@ import java.util.*;
 public class Problem6 {
 
     public static List<String> solution(List<List<String>> forms) {
-
-        // TreeSet을 사용해 중복제거 , 오름차순 정렬 한다.
-        TreeSet<String> tree = new TreeSet<>();
+        Map<String, String> store = new HashMap<>();
 
 
-        for (int i = 0; i < forms.size(); i++) {
-            for (int j = i+1; j < forms.size(); j++)
-            // 조건문을 통해 이름이 같으면 tree에 이메일을 담아준다.
-            {
-                if ( test(forms.get(i).get(1), forms.get(j).get(1))) {
-                    tree.add(forms.get(i).get(0));
-                    tree.add(forms.get(j).get(0));
-                }
-            }
-        }
-        // list에 중복하고 정렬이된 tree를 담아준다.
-        List<String> list = new ArrayList<>(tree);
-
-
-        return list;
+        return forms.get(0);
 
     }
 
-    // boolean 타입을 사용해 앞에서 부터 2글자씩 slice해 중복을 체크해 equal이면 return true , 그게아니라면 return false
-    static boolean test(String a, String b) {
-        for (int i = 0; i < a.length()-1; i++) {
-            for (int j = 0; j < b.length()-1; j++) {
-                if (a.substring(i, i + 2).equals(b.substring(j, j + 2))) {
+    private static boolean check(String firstName, String compareName){
+
+        for (int i = 0; i < firstName.length(); i++) {
+            for (int j = 0; j < compareName.length(); j++) {
+                /**
+                 * subString(int n, int m) 인덱스를 기준으로, n에서 m까지 반환한다.
+                 * 예 : string s = "shin";
+                 * s.subString(1,3) = "hi" 가 반환
+                 */
+                if(firstName.substring(i, i+2).equals(compareName.substring(j, j+2))){
                     return true;
                 }
             }
         }
-
+        /**
+         * 중복되는 닉네임이 없어, 반환하지 않아도됨.
+         */
         return false;
+
     }
 }
